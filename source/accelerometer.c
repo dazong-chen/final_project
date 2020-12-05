@@ -152,10 +152,10 @@ void accelerometer_init()
 		test_if_written(CTRL_REG_5, 0x01);	// register value got written
 
 		// 100Hz, active mode
-		i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, 0x01);
+		i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, CTRL_REG_1_VAL);
 
 		// test if i2c write byte is actually writing to the MMA CTRL_REG_1 register
-		test_if_written(CTRL_REG_1, 0x01);	// register value got written
+		test_if_written(CTRL_REG_1, CTRL_REG_1_VAL);	// register value got written
 
 		printf("MMA8451Q Accelerometer is successfully initialized \r\n");
 	}
@@ -206,20 +206,3 @@ void test_if_written(uint8_t reg_addr, uint8_t reg_data)
 	assert(data == reg_data);
 }
 
-
-//void read_full_xyz()
-//{
-//	uint8_t data[6];
-//	int16_t temp[3];
-//
-//	i2c_read_bytes(DEVICE_ADDR, DATA_REG_OUT_X_MSB, data, 6);
-//
-//	for (int i=0; i<3; i++ ) {
-//		temp[i] = (int16_t) ((data[2*i]<<8) | data[2*i+1]);
-//	}
-//
-//	// Align for 14 bits
-//	int16_t 	x = temp[0]/4;
-//	int16_t 	y = temp[1]/4;
-//	int16_t 	z = temp[2]/4;
-//}

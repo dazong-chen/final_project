@@ -96,5 +96,7 @@ int16_t getZAxisValue();
  *********************************************************************************************/
 void test_if_written(uint8_t reg_addr, uint8_t reg_data);
 
-void read_full_xyz();
+
+
+
 #endif

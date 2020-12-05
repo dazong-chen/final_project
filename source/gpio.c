@@ -22,8 +22,8 @@
 #define		INT1_CTRL_REG			PORTA->PCR[INT1_PIN]
 
 
-extern bool 	board_move = false;
-
+bool 		board_rotate = false;
+uint32_t	int1_signal_counter = 0;
 
 // initialize INT1 pin
 void int1_signal_init()
@@ -46,11 +46,24 @@ void int1_signal_init()
 	__enable_irq();
 }
 
+bool board_move()
+{
+	return board_rotate;
+}
+
+uint32_t get_ptairq_count()
+{
+	return int1_signal_counter;
+}
 
 // PORT A interrupt
 void PORTA_IRQHandler()
 {
-	board_move = true;
-	// NVIC_ClearPendingIRQ(PORTA_IRQn);
-	PORTA->ISFR = 0xFFFFFFFF;		// clear status flags
+	if(PORTA->ISFR & (1 << INT1_PIN))
+	{
+		board_rotate = true;
+		PORTA->ISFR &= (1 << INT1_PIN);		// clear status flags
+
+		int1_signal_counter++;
+	}
 }

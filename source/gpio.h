@@ -18,6 +18,7 @@
 #define _GPIO_H_
 
 #include "MKL25Z4.h"
+#include "stdbool.h"
 
 // LED RED is on PortB, Pin18
 #define			LED_RED_GPIO_PORT			GPIOB
@@ -45,6 +46,20 @@
  * return value: none
  *********************************************************************************************/
 void int1_signal_init();
+
+
+/**********************************************************************************************
+ * function name: board_move()
+ *
+ * function description: detect if board gets moved
+ *
+ * parameter: none
+ *
+ * return value: true for moved and false for not moved
+ *********************************************************************************************/
+bool board_move();
+
+uint32_t get_ptairq_count();
 
 
 #endif

@@ -40,6 +40,7 @@
 #include "MKL25Z4.h"
 #include "fsl_debug_console.h"
 
+#include "stdbool.h"
 #include "stdlib.h"
 #include "clock.h"
 #include "i2c.h"
@@ -66,9 +67,6 @@ int main()
 #endif
 
 
-
-    bool board_move;		// extern value, will be changed in PORTA_IRQHandler() in gpio.c
-
     // axis values
     int16_t 	x = 0;
     int16_t		y = 0;
@@ -83,10 +81,9 @@ int main()
 
     while(1)
     {
-//    	color_val(LED_OFF, LED_OFF, LED_OFF);
-//    	if(board_move)
-//    	{
-    		board_move = false;
+
+    	if(board_move())
+    	{
 
     		x = getXAxisValue(); // SENSITIVITY_RATIO;
     		y = getYAxisValue(); // SENSITIVITY_RATIO;
@@ -94,10 +91,11 @@ int main()
 
     		color_val(x, y, z);
     		printf("x = %d, y = %d, z = %d\r\n", x, y, z);
-    		delay_process(20);	// delay 20ms
-
-
-//    	}
+    		delay_process(50);	// delay 50ms
+    		printf("IRQ count = lu\n", get_ptairq_count());
+    		delay_process(50);	// delay 50ms
+    		color_val(LED_OFF, LED_OFF, LED_OFF);
+    	}
     }
 
 }
