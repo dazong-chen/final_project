@@ -1,2 +1,2 @@
 tpm.c:27:6:tpm_init	16	static
-tpm.c:68:6:color_change	24	static
+tpm.c:68:6:color_val	24	static

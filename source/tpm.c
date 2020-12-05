@@ -64,8 +64,8 @@ void tpm_init(uint16_t period)
 }
 
 
-
-void color_change(int16_t x, int16_t y, int16_t z)
+// LED color duty cycle value
+void color_val(int16_t x, int16_t y, int16_t z)
 {
 	LED_RED_TPM_CONTROL.CnV = x;
 	LED_GREEN_TPM_CONTROL.CnV = y;

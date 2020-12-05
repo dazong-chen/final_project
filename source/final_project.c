@@ -47,6 +47,8 @@
 #include "tpm.h"
 
 
+#define 	LED_OFF		0
+
 
 /*
  * @brief   Application entry point.
@@ -81,21 +83,21 @@ int main()
 
     while(1)
     {
-
-    	if(board_move)
-    	{
+//    	color_val(LED_OFF, LED_OFF, LED_OFF);
+//    	if(board_move)
+//    	{
     		board_move = false;
 
     		x = getXAxisValue(); // SENSITIVITY_RATIO;
     		y = getYAxisValue(); // SENSITIVITY_RATIO;
     		z = getZAxisValue(); // SENSITIVITY_RATIO;
 
-    		color_change(x, y, z);
+    		color_val(x, y, z);
     		printf("x = %d, y = %d, z = %d\r\n", x, y, z);
     		delay_process(20);	// delay 20ms
 
 
-    	}
+//    	}
     }
 
 }

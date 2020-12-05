@@ -46,18 +46,18 @@ void tpm_init(uint16_t period);
 
 
 /**********************************************************************************************
- * function name: color_change(uint32_t start_color, uint32_t end_color,  uint32_t duration)
+ * function name: color_val(int16_t x, int16_t y, int16_t z)
  *
- * function description: color transition from one state to another
+ * function description: color duty cycle value
  *
  * parameter:
- * 		start_color: start state color
- * 		end_color: end state color
- * 		duration: take how long to transit the two states
+ * 		x: x axis value
+ * 		y: y axis value
+ * 		z: z axis value
  *
  * return value: none
  *********************************************************************************************/
-void color_change(int16_t x, int16_t y, int16_t z);
+void color_val(int16_t x, int16_t y, int16_t z);
 
 
 
