@@ -67,7 +67,6 @@
 #define		DATA_REG_MSB_SHIFT		8           // MSB register reads data from data bit6-bit13
 #define		DATA_REG_LSB_SHIFT		2           // LSB register reads data from data bit0-bit5
 
-#define		SENSITIVITY_RATIO		4096        // 2g mode
 #define		CALIBRATION_RATIO		8			// 2g value calibration
 
 
@@ -108,7 +107,7 @@ void accelerometer_init()
 		// Enable motion interrupt, CTRL_REG_4_VAL - 0x04
 		i2c_write_byte(DEVICE_ADDR, CTRL_REG_4, CTRL_REG_4_VAL);
 
-		// test if i2c write byte is actually writing to the MMA register
+		// test if i2c write byte is actually writing to the MMA CTRL_REG_4 register
 		test_if_written(CTRL_REG_4, CTRL_REG_4_VAL);	// register value got written
 
 		// motion interrupt routed to INT1 - PTA14, CTRL_REG_4_VAL = 0x04
@@ -126,7 +125,7 @@ void accelerometer_init()
 
 
 // get axis value depends on axis addr
-uint16_t getAxisValue(uint8_t axis_addr)
+int16_t getAxisValue(uint8_t axis_addr)
 {
 	int16_t 	data;
 	uint8_t 	axis_data[2];
@@ -150,21 +149,21 @@ uint16_t getAxisValue(uint8_t axis_addr)
 
 
 // get X axis value
-uint16_t getXAxisValue()
+int16_t getXAxisValue()
 {
 	return getAxisValue(DATA_REG_OUT_X_MSB);
 }
 
 
 // get Y axis value
-uint16_t getYAxisValue()
+int16_t getYAxisValue()
 {
 	return getAxisValue(DATA_REG_OUT_Y_MSB);
 }
 
 
 // get Z axis value
-uint16_t getZAxisValue()
+int16_t getZAxisValue()
 {
 	return getAxisValue(DATA_REG_OUT_Z_MSB);
 }

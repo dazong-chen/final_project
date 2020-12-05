@@ -19,19 +19,81 @@
 #include "i2c.h"
 
 
+#define		SENSITIVITY_RATIO		4096        // 2g mode
+
+
+/**********************************************************************************************
+ * function name: accelerometer_init()
+ *
+ * function description: initialize accelerometer
+ *
+ * parameter: none
+ *
+ * return value: none
+ *********************************************************************************************/
 void accelerometer_init();
 
-void accelerometer_calibration();
 
-uint16_t getAxisValue(uint8_t axis_addr);
+/**********************************************************************************************
+ * function name: getAxisValue(uint8_t axis_addr)
+ *
+ * function description: read axis 14-bit data
+ *
+ * parameter:
+ * 		uint8_t axis_addr: x, y, or z axis register address
+ *
+ * return value: none
+ *********************************************************************************************/
+int16_t getAxisValue(uint8_t axis_addr);
 
-uint16_t getXAxisValue();
 
-uint16_t getYAxisValue();
+/**********************************************************************************************
+ * function name: getXAxisValue()
+ *
+ * function description: read x-axis 14-bit value from accelerometer
+ *
+ * parameter: none
+ *
+ * return value: x-axis 14-bit value
+ *********************************************************************************************/
+int16_t getXAxisValue();
 
-uint16_t getZAxisValue();
 
-// check if byte is written into the register
+/**********************************************************************************************
+ * function name: getYAxisValue()
+ *
+ * function description: read y-axis 14-bit value from accelerometer
+ *
+ * parameter: none
+ *
+ * return value: y-axis 14-bit value
+ *********************************************************************************************/
+int16_t getYAxisValue();
+
+
+/**********************************************************************************************
+ * function name: getZAxisValue()
+ *
+ * function description: read z-axis 14-bit value from accelerometer
+ *
+ * parameter: none
+ *
+ * return value: z-axis 14-bit value
+ *********************************************************************************************/
+int16_t getZAxisValue();
+
+
+/**********************************************************************************************
+ * function name: test_if_written
+ *
+ * function description: check if data is being written into register, assert() will report failure
+ *
+ * parameter:
+ * 		reg_addr: register address
+ * 		reg_data: configured register data
+ *
+ * return value: none
+ *********************************************************************************************/
 void test_if_written(uint8_t reg_addr, uint8_t reg_data);
 
 

@@ -47,7 +47,6 @@
 
 
 
-#define		SENSITIVITY_RATIO		4096        // 2g mode
 /*
  * @brief   Application entry point.
  */
@@ -85,8 +84,8 @@ int main()
         {
             board_move = false;
             x = getXAxisValue() / SENSITIVITY_RATIO;
-            y = getYAxisValue();
-            z = getZAxisValue();
+            y = getYAxisValue() / SENSITIVITY_RATIO;
+            z = getZAxisValue() / SENSITIVITY_RATIO;
         }
     }
 

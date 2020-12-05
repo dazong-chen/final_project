@@ -35,7 +35,15 @@
 #define			LED_BLUE_PIN_CTRL_REG		PORTD->PCR[LED_BLUE_PIN]
 
 
-
+/**********************************************************************************************
+ * function name: int1_signal_init()
+ *
+ * function description: initialize INT1 signal which is routed to PTA14
+ *
+ * parameter: none
+ *
+ * return value: none
+ *********************************************************************************************/
 void int1_signal_init();
 
 
