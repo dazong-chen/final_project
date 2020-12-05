@@ -70,4 +70,5 @@ void color_val(int16_t x, int16_t y, int16_t z)
 	LED_RED_TPM_CONTROL.CnV = x;
 	LED_GREEN_TPM_CONTROL.CnV = y;
 	LED_BLUE_TPM_CONTROL.CnV = z;
+	delay_process(50);
 }

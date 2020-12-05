@@ -71,6 +71,7 @@ int main()
     int16_t 	x = 0;
     int16_t		y = 0;
     int16_t		z = 0;
+    uint32_t	int1_signal_counter;
 
     clock_init();
     i2c_init();
@@ -82,20 +83,19 @@ int main()
     while(1)
     {
 
-    	if(board_move())
-    	{
+//    	if(board_move())
+//    	{
 
     		x = getXAxisValue(); // SENSITIVITY_RATIO;
     		y = getYAxisValue(); // SENSITIVITY_RATIO;
     		z = getZAxisValue(); // SENSITIVITY_RATIO;
 
     		color_val(x, y, z);
-    		printf("x = %d, y = %d, z = %d\r\n", x, y, z);
-    		delay_process(50);	// delay 50ms
-    		printf("IRQ count = lu\n", get_ptairq_count());
-    		delay_process(50);	// delay 50ms
     		color_val(LED_OFF, LED_OFF, LED_OFF);
+//    		printf("x = %d, y = %d, z = %d\r\n", x, y, z);
+//    		printf("IRQ count = %lu\n\n", get_INT1IRQ_count());
+
     	}
-    }
+//    }
 
 }

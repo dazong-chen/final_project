@@ -59,7 +59,7 @@ void int1_signal_init();
  *********************************************************************************************/
 bool board_move();
 
-uint32_t get_ptairq_count();
+uint32_t get_INT1IRQ_count();
 
 
 #endif

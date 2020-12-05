@@ -38,10 +38,9 @@ void int1_signal_init()
 
 	INT1_PORT->PDDR &= ~(1<<INT1_PIN);		// set pin to input
 
-	NVIC_SetPriority(PORTA_IRQn, 64);
+	NVIC_SetPriority(PORTA_IRQn, 2);
 	NVIC_ClearPendingIRQ(PORTA_IRQn);
 	NVIC_EnableIRQ(PORTA_IRQn);
-
 
 	__enable_irq();
 }
@@ -51,7 +50,7 @@ bool board_move()
 	return board_rotate;
 }
 
-uint32_t get_ptairq_count()
+uint32_t get_INT1IRQ_count()
 {
 	return int1_signal_counter;
 }
@@ -59,6 +58,7 @@ uint32_t get_ptairq_count()
 // PORT A interrupt
 void PORTA_IRQHandler()
 {
+	// if PTA14 ISF is detected
 	if(PORTA->ISFR & (1 << INT1_PIN))
 	{
 		board_rotate = true;
