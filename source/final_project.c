@@ -64,12 +64,12 @@ int main()
 
 
 
-    bool board_move;		// extern value, will be changed in PORTA_IRQHandler() in accelerometer.c
+    bool board_move;		// extern value, will be changed in PORTA_IRQHandler() in gpio.c
 
     // axis values
-    float 	x = 0;
-    float	y = 0;
-    float	z = 0;
+    int 	x = 0;
+    int		y = 0;
+    int		z = 0;
 
     clock_init();
     i2c_init();
@@ -80,13 +80,15 @@ int main()
 
     while(1)
     {
-        if(board_move)
-        {
-            board_move = false;
-            x = getXAxisValue() / SENSITIVITY_RATIO;
-            y = getYAxisValue() / SENSITIVITY_RATIO;
-            z = getZAxisValue() / SENSITIVITY_RATIO;
-        }
+    	if(board_move)
+    	{
+    		board_move = false;
+    		x = getXAxisValue() / SENSITIVITY_RATIO;
+    		y = getYAxisValue() / SENSITIVITY_RATIO;
+    		z = getZAxisValue() / SENSITIVITY_RATIO;
+
+    		printf("x = %d, y = %d, z = %d\r\n", x, y, z);
+    	}
     }
 
 }

@@ -46,8 +46,9 @@ void int1_signal_init()
 }
 
 
+// PORT A interrupt
 void PORTA_IRQHandler()
 {
 	board_move = true;
-	PORTA->ISFR = 0xFFFFFFFF;	// Clear interrupt
+	NVIC_ClearPendingIRQ(PORTA_IRQn);
 }

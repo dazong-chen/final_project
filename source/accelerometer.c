@@ -29,7 +29,7 @@
 
 #define		CTRL_REG_1				0x2A        // ctrl register 1 address
 #define		CTRL_REG_1_VAL			0x19		// ODR = 100Hz, reduced noise mode, Active mode
-#define		CTRL_REG_1_STANDBY		0x00		// standby MMA
+#define		CTRL_REG_1_STANDBY		0x00		// MMA standby mode
 
 #define		CTRL_REG_2				0x2B		// ctrl register 2 address
 #define		CTRL_REG_2_RST			0x40		// set reset bit
@@ -64,7 +64,7 @@
 #define     DATA_REG_OUT_Y_MSB      0x03        // y-axis data register
 #define		DATA_REG_OUT_Z_MSB		0x05        // z-axis data register
 
-#define		DATA_REG_MSB_SHIFT		8           // MSB register reads data from data bit6-bit13
+#define		DATA_REG_MSB_SHIFT		6           // MSB register reads data from data bit6-bit13
 #define		DATA_REG_LSB_SHIFT		2           // LSB register reads data from data bit0-bit5
 
 #define		CALIBRATION_RATIO		8			// 2g value calibration
@@ -78,12 +78,13 @@ void accelerometer_init()
 
 
 	// configure accelerometer
+	// check if accelerometer is detected
 	if(i2c_read_one_byte(DEVICE_ADDR, REG_WHO_AM_I) == WHO_AM_I_VAL)
 	{
 		// reset MMA
 		i2c_write_byte(DEVICE_ADDR, CTRL_REG_2, CTRL_REG_2_RST);
 
-		// Wait for the RST bit to clear, reset done, after reset done, MMA will be in standy mode
+		// Wait for the RST bit to clear, reset done, after reset done, MMA will be in standby mode
 		do
 		{
 			reset_in_process = i2c_read_one_byte(DEVICE_ADDR, CTRL_REG_2) & 0x40;
@@ -132,17 +133,9 @@ int16_t getAxisValue(uint8_t axis_addr)
 	int 		length = sizeof(axis_data)/sizeof(axis_data[0]);
 
 
-	if(axis_addr < 0)
-	{
-		data = -1;		// invalid input
-	}
+	i2c_read_bytes(DEVICE_ADDR, axis_addr, axis_data, length);	// read MSB bytes and LSB byte from axis wanted
 
-	else
-	{
-		i2c_read_bytes(DEVICE_ADDR, axis_addr, axis_data, length);	// read MSB bytes and LSB byte from axis wanted
-
-		data = (axis_data[0] << DATA_REG_MSB_SHIFT) | (axis_data[1] >> DATA_REG_LSB_SHIFT);   // MSB | LSB to get 14bits of data
-	}
+	data = (int16_t) (axis_data[0] << DATA_REG_MSB_SHIFT) | (axis_data[1] >> DATA_REG_LSB_SHIFT);   // MSB | LSB to get 14bits of data
 
 	return data;
 }
