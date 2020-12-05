@@ -38,9 +38,10 @@ void int1_signal_init()
 
 	INT1_PORT->PDDR &= ~(1<<INT1_PIN);		// set pin to input
 
-	NVIC_SetPriority(PORTA_IRQn, 2);
+	NVIC_SetPriority(PORTA_IRQn, 64);
 	NVIC_ClearPendingIRQ(PORTA_IRQn);
 	NVIC_EnableIRQ(PORTA_IRQn);
+
 
 	__enable_irq();
 }
@@ -50,5 +51,6 @@ void int1_signal_init()
 void PORTA_IRQHandler()
 {
 	board_move = true;
-	NVIC_ClearPendingIRQ(PORTA_IRQn);
+	// NVIC_ClearPendingIRQ(PORTA_IRQn);
+	PORTA->ISFR = 0xFFFFFFFF;		// clear status flags
 }

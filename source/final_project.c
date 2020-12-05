@@ -82,16 +82,20 @@ int main()
     while(1)
     {
 
-//    	{
-//    		read_full_xyz();
+    	if(board_move)
+    	{
     		board_move = false;
+
     		x = getXAxisValue(); // SENSITIVITY_RATIO;
     		y = getYAxisValue(); // SENSITIVITY_RATIO;
     		z = getZAxisValue(); // SENSITIVITY_RATIO;
 
     		color_change(x, y, z);
-    		//printf("x = %d, y = %d, z = %d\r\n", x, y, z);
-//    	}
+    		printf("x = %d, y = %d, z = %d\r\n", x, y, z);
+    		delay_process(20);	// delay 20ms
+
+
+    	}
     }
 
 }

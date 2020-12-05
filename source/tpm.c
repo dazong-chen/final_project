@@ -67,7 +67,7 @@ void tpm_init(uint16_t period)
 
 void color_change(int16_t x, int16_t y, int16_t z)
 {
-	LED_RED_TPM_CONTROL.CnV = x;			// 100% duty cycle for red LED
-	LED_GREEN_TPM_CONTROL.CnV = y;		// 100% duty cycle for green led
-	LED_BLUE_TPM_CONTROL.CnV = z;			// 100% duty cycle for blue led
+	LED_RED_TPM_CONTROL.CnV = x;
+	LED_GREEN_TPM_CONTROL.CnV = y;
+	LED_BLUE_TPM_CONTROL.CnV = z;
 }
