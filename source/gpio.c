@@ -62,8 +62,7 @@ void PORTA_IRQHandler()
 	if(PORTA->ISFR & (1 << INT1_PIN))
 	{
 		board_rotate = true;
-		PORTA->ISFR &= (1 << INT1_PIN);		// clear status flags
-
 		int1_signal_counter++;
+		PORTA->ISFR &= (1 << INT1_PIN);		// clear status flags
 	}
 }

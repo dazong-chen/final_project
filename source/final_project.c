@@ -79,12 +79,16 @@ int main()
     int1_signal_init();
     tpm_init(48000);
 
+    x = getXAxisValue(); // SENSITIVITY_RATIO;
+	y = getYAxisValue(); // SENSITIVITY_RATIO;
+	z = getZAxisValue(); // SENSITIVITY_RATIO;
+	printf("x = %d, y = %d, z = %d\r\n", x, y, z);
 
     while(1)
     {
 
-//    	if(board_move())
-//    	{
+    	if(board_move())
+    	{
 
     		x = getXAxisValue(); // SENSITIVITY_RATIO;
     		y = getYAxisValue(); // SENSITIVITY_RATIO;
@@ -92,10 +96,10 @@ int main()
 
     		color_val(x, y, z);
     		color_val(LED_OFF, LED_OFF, LED_OFF);
-//    		printf("x = %d, y = %d, z = %d\r\n", x, y, z);
-//    		printf("IRQ count = %lu\n\n", get_INT1IRQ_count());
+    		printf("x = %d, y = %d, z = %d\r\n", x, y, z);
+    		printf("IRQ count = %lu\n\n", get_INT1IRQ_count());
 
     	}
-//    }
+    }
 
 }
