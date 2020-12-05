@@ -68,7 +68,7 @@
 #define		DATA_REG_LSB_SHIFT		2           // LSB register reads data from data bit0-bit5
 
 #define		CALIBRATION_RATIO		8			// 2g value calibration
-
+#define     UINT14_MAX              16383       // Max value
 
 
 
@@ -81,46 +81,47 @@ void accelerometer_init()
 	// check if accelerometer is detected
 	if(i2c_read_one_byte(DEVICE_ADDR, REG_WHO_AM_I) == WHO_AM_I_VAL)
 	{
-		// reset MMA
-		i2c_write_byte(DEVICE_ADDR, CTRL_REG_2, CTRL_REG_2_RST);
-
-		// Wait for the RST bit to clear, reset done, after reset done, MMA will be in standby mode
-		do
-		{
-			reset_in_process = i2c_read_one_byte(DEVICE_ADDR, CTRL_REG_2) & 0x40;
-		}while (reset_in_process);
-
-		// using 2g scale
-		i2c_write_byte(DEVICE_ADDR, XYZ_DATA_CFG, XYZ_DATA_CFG_VAL);
-
-		// Push-pull, active low interrupt
-		i2c_write_byte(DEVICE_ADDR, CTRL_REG_3, 0x00);
-
-		// ELE = 1, OAE = 1, ZEFE = 1, YEFE = 1, XEFE = 1, FF_MT_CFG_VAL = 0xF8
-		i2c_write_byte(DEVICE_ADDR, FF_MT_CFG, FF_MT_CFG_VAL);
-
-		// THS = 32, 2g/0.063 = 31.7 round up 32, FF_MT_THS_VAL = 32
-		i2c_write_byte(DEVICE_ADDR, FF_MT_THS, FF_MT_THS_VAL);
-
-		// debounce 10 counts, FF_MT_COUNT_VAL = 0x0A
-		i2c_write_byte(DEVICE_ADDR, FF_MT_COUNT, FF_MT_COUNT_VAL);
-
-		// Enable motion interrupt, CTRL_REG_4_VAL - 0x04
-		i2c_write_byte(DEVICE_ADDR, CTRL_REG_4, CTRL_REG_4_VAL);
-
-		// test if i2c write byte is actually writing to the MMA CTRL_REG_4 register
-		test_if_written(CTRL_REG_4, CTRL_REG_4_VAL);	// register value got written
-
-		// motion interrupt routed to INT1 - PTA14, CTRL_REG_4_VAL = 0x04
-		i2c_write_byte(DEVICE_ADDR, CTRL_REG_5, CTRL_REG_4_VAL);
-
-		// using high resolution mode
-		i2c_write_byte(DEVICE_ADDR, CTRL_REG_2, CTRL_REG_2_VAL);
-
-		// 100Hz, active mode
-		i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, CTRL_REG_1_VAL);
-
-		printf("MMA8451Q Accelerometer is successfully initialized \r\n");
+		i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, 0x01);
+//		// reset MMA
+//		i2c_write_byte(DEVICE_ADDR, CTRL_REG_2, CTRL_REG_2_RST);
+//
+//		// Wait for the RST bit to clear, reset done, after reset done, MMA will be in standby mode
+//		do
+//		{
+//			reset_in_process = i2c_read_one_byte(DEVICE_ADDR, CTRL_REG_2) & 0x40;
+//		}while (reset_in_process);
+//
+//		// using 2g scale
+//		i2c_write_byte(DEVICE_ADDR, XYZ_DATA_CFG, XYZ_DATA_CFG_VAL);
+//
+//		// Push-pull, active low interrupt
+//		i2c_write_byte(DEVICE_ADDR, CTRL_REG_3, 0x00);
+//
+//		// ELE = 1, OAE = 1, ZEFE = 1, YEFE = 1, XEFE = 1, FF_MT_CFG_VAL = 0xF8
+//		i2c_write_byte(DEVICE_ADDR, FF_MT_CFG, FF_MT_CFG_VAL);
+//
+//		// THS = 32, 2g/0.063 = 31.7 round up 32, FF_MT_THS_VAL = 32
+//		i2c_write_byte(DEVICE_ADDR, FF_MT_THS, FF_MT_THS_VAL);
+//
+//		// debounce 10 counts, FF_MT_COUNT_VAL = 0x0A
+//		i2c_write_byte(DEVICE_ADDR, FF_MT_COUNT, FF_MT_COUNT_VAL);
+//
+//		// Enable motion interrupt, CTRL_REG_4_VAL - 0x04
+//		i2c_write_byte(DEVICE_ADDR, CTRL_REG_4, CTRL_REG_4_VAL);
+//
+//		// test if i2c write byte is actually writing to the MMA CTRL_REG_4 register
+//		test_if_written(CTRL_REG_4, CTRL_REG_4_VAL);	// register value got written
+//
+//		// motion interrupt routed to INT1 - PTA14, CTRL_REG_4_VAL = 0x04
+//		i2c_write_byte(DEVICE_ADDR, CTRL_REG_5, CTRL_REG_4_VAL);
+//
+//		// using high resolution mode
+//		i2c_write_byte(DEVICE_ADDR, CTRL_REG_2, CTRL_REG_2_VAL);
+//
+//		// 100Hz, active mode
+//		i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, CTRL_REG_1_VAL);
+//
+//		printf("MMA8451Q Accelerometer is successfully initialized \r\n");
 	}
 }
 
@@ -135,7 +136,7 @@ int16_t getAxisValue(uint8_t axis_addr)
 
 	i2c_read_bytes(DEVICE_ADDR, axis_addr, axis_data, length);	// read MSB bytes and LSB byte from axis wanted
 
-	data = (int16_t) (axis_data[0] << DATA_REG_MSB_SHIFT) | (axis_data[1] >> DATA_REG_LSB_SHIFT);   // MSB | LSB to get 14bits of data
+	data = (axis_data[0] << DATA_REG_MSB_SHIFT) | (axis_data[1] >> DATA_REG_LSB_SHIFT);   // MSB | LSB to get 14bits of data
 
 	return data;
 }
@@ -149,7 +150,7 @@ int16_t getXAxisValue()
 
 
 // get Y axis value
-int16_t getYAxisValue()
+float getYAxisValue()
 {
 	return getAxisValue(DATA_REG_OUT_Y_MSB);
 }
@@ -168,3 +169,21 @@ void test_if_written(uint8_t reg_addr, uint8_t reg_data)
 	uint8_t data = i2c_read_one_byte(DEVICE_ADDR, reg_addr);
 	assert(data == reg_data);
 }
+
+
+//void read_full_xyz()
+//{
+//	uint8_t data[6];
+//	int16_t temp[3];
+//
+//	i2c_read_bytes(DEVICE_ADDR, DATA_REG_OUT_X_MSB, data, 6);
+//
+//	for (int i=0; i<3; i++ ) {
+//		temp[i] = (int16_t) ((data[2*i]<<8) | data[2*i+1]);
+//	}
+//
+//	// Align for 14 bits
+//	int16_t 	x = temp[0]/4;
+//	int16_t 	y = temp[1]/4;
+//	int16_t 	z = temp[2]/4;
+//}

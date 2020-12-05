@@ -57,36 +57,8 @@ void tpm_init(uint16_t period);
  *
  * return value: none
  *********************************************************************************************/
-void color_change(uint32_t start_color, uint32_t end_color,  uint32_t duration);
+void color_change(int16_t x, int16_t y, int16_t z);
 
 
-/**********************************************************************************************
- * function name: color_decode(const uint32_t color,uint16_t *red, uint16_t *green, uint16_t *blue)
- *
- * function description: decode color code into individual R, G, B value
- *
- * parameter:
- * 		color: color code
- * 		red: red value
- * 		green: green value
- * 		blue: blue value
- *
- * return value: none
- *********************************************************************************************/
-void color_decode(const uint32_t color,uint16_t *red, uint16_t *green, uint16_t *blue);
-
-
-/**********************************************************************************************
- * function name: color_steady_state(const uint32_t color, uint32_t duration)
- *
- * function description: how long to stay in same color
- *
- * parameter:
- * 		color: color code
- *		duration: how long being in the state
- *
- * return value: none
- *********************************************************************************************/
-void color_steady_state(const uint32_t color, uint32_t duration);
 
 #endif

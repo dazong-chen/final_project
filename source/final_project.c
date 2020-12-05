@@ -40,6 +40,7 @@
 #include "MKL25Z4.h"
 #include "fsl_debug_console.h"
 
+#include "stdlib.h"
 #include "clock.h"
 #include "i2c.h"
 #include "accelerometer.h"
@@ -67,28 +68,30 @@ int main()
     bool board_move;		// extern value, will be changed in PORTA_IRQHandler() in gpio.c
 
     // axis values
-    int 	x = 0;
-    int		y = 0;
-    int		z = 0;
+    int16_t 	x = 0;
+    int16_t		y = 0;
+    int16_t		z = 0;
 
     clock_init();
     i2c_init();
     accelerometer_init();
     int1_signal_init();
-
+    tpm_init(48000);
 
 
     while(1)
     {
-    	if(board_move)
-    	{
-    		board_move = false;
-    		x = getXAxisValue() / SENSITIVITY_RATIO;
-    		y = getYAxisValue() / SENSITIVITY_RATIO;
-    		z = getZAxisValue() / SENSITIVITY_RATIO;
 
-    		printf("x = %d, y = %d, z = %d\r\n", x, y, z);
-    	}
+//    	{
+//    		read_full_xyz();
+    		board_move = false;
+    		x = getXAxisValue(); // SENSITIVITY_RATIO;
+    		y = getYAxisValue(); // SENSITIVITY_RATIO;
+    		z = getZAxisValue(); // SENSITIVITY_RATIO;
+
+    		color_change(x, y, z);
+    		//printf("x = %d, y = %d, z = %d\r\n", x, y, z);
+//    	}
     }
 
 }
