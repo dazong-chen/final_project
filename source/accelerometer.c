@@ -75,7 +75,7 @@ void accelerometer_init()
 {
 	uint8_t 	reset_in_process;
 	int 		data_ready = 0;
-
+	uint8_t		interrupt_set = 0;
 	// configure accelerometer
 	// check if accelerometer is detected
 	if(i2c_read_one_byte(DEVICE_ADDR, REG_WHO_AM_I) == WHO_AM_I_VAL)
@@ -134,6 +134,7 @@ void accelerometer_init()
 		// test if i2c write byte is actually writing to the MMA CTRL_REG_5 register
 		test_if_written(CTRL_REG_5, CTRL_REG_5_VAL);	// register value got written
 
+		interrupt_set = i2c_read_one_byte(DEVICE_ADDR, 0x0C);
 //		// using high resolution mode
 //		i2c_write_byte(DEVICE_ADDR, CTRL_REG_2, CTRL_REG_2_VAL);
 //
