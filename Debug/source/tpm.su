@@ -1,0 +1,4 @@
+tpm.c:22:6:tpm_init	16	static
+tpm.c:62:6:color_change	72	static
+tpm.c:106:6:color_steady_state	40	static
+tpm.c:128:6:color_decode	24	static

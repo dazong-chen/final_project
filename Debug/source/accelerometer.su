@@ -1,0 +1,6 @@
+accelerometer.c:76:6:accelerometer_init	16	static
+accelerometer.c:127:10:getAxisValue	32	static
+accelerometer.c:151:10:getXAxisValue	8	static
+accelerometer.c:158:10:getYAxisValue	8	static
+accelerometer.c:165:10:getZAxisValue	8	static
+accelerometer.c:172:6:test_if_written	32	static

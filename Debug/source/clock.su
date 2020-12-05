@@ -1,0 +1,2 @@
+clock.c:28:6:clock_init	8	static
+clock.c:47:6:delay_process	24	static
