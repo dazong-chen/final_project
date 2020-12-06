@@ -18,6 +18,7 @@
 #include "stdint.h"
 
 
+
 /**********************************************************************************************
  * function name: i2c_init()
  *
@@ -140,8 +141,34 @@ void i2c_ack();
  *********************************************************************************************/
 void i2c_write_byte(uint8_t dev_addr, uint8_t reg_addr, uint8_t data);
 
-uint8_t i2c_read_one_byte(uint8_t dev_addr, uint8_t reg);
 
+/**********************************************************************************************
+ * function name: i2c_read_one_byte()
+ *
+ * function description: read one byte from register
+ *
+ * parameter:
+ * 		dev_addr: device address
+ * 		reg_addr: register address
+ *
+ * return value: value of register
+ *********************************************************************************************/
+uint8_t i2c_read_one_byte(uint8_t dev_addr, uint8_t reg_addr);
+
+
+/**********************************************************************************************
+ * function name: i2c_read_bytes
+ *
+ * function description: write a byte of data onto bus
+ *
+ * parameter:
+ * 		dev_addr: device address
+ * 		reg_addr: start register address
+ * 		*data: data buffer than will contain the output data
+ * 		count: bytes to be read
+ *
+ * return value: none
+ *********************************************************************************************/
 void i2c_read_bytes(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint8_t count);
 
 

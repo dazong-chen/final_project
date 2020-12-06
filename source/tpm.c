@@ -71,9 +71,9 @@ void color_val(int16_t x, int16_t y, int16_t z)
 	LED_GREEN_TPM_CONTROL.CnV = y;
 	LED_BLUE_TPM_CONTROL.CnV = z;
 
-	if((x == 0) && (y == 0) && (z == 0))
+	if((x == COLOR_OFF) && (y == COLOR_OFF) && (z == COLOR_OFF))
 	{
-
+		// LED off
 	}
 
 	else

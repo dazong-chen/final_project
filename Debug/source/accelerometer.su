@@ -2,10 +2,10 @@ core_cm0plus.h:745:22:NVIC_EnableIRQ	16	static
 core_cm0plus.h:791:22:NVIC_ClearPendingIRQ	16	static
 core_cm0plus.h:804:22:NVIC_SetPriority	24	static
 accelerometer.c:87:6:accelerometer_init	16	static
-accelerometer.c:176:9:getAxisValue	32	static
-accelerometer.c:192:9:getXAxisValue	8	static
-accelerometer.c:199:7:getYAxisValue	8	static
-accelerometer.c:206:9:getZAxisValue	8	static
-accelerometer.c:213:6:test_if_written	32	static
-accelerometer.c:221:10:irq_counter	8	static
-accelerometer.c:228:6:PORTA_IRQHandler	24	static
+accelerometer.c:174:9:getAxisValue	32	static
+accelerometer.c:190:9:getXAxisValue	8	static
+accelerometer.c:197:7:getYAxisValue	8	static
+accelerometer.c:204:9:getZAxisValue	8	static
+accelerometer.c:211:6:test_if_written	32	static
+accelerometer.c:219:10:irq_counter	8	static
+accelerometer.c:226:6:PORTA_IRQHandler	24	static

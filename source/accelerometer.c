@@ -87,8 +87,6 @@ uint32_t	int1_signal_counter = 0;
 void accelerometer_init()
 {
 	uint8_t 	reset_in_process;
-	int 		data_ready = 0;
-	uint8_t		interrupt_set = 0;
 
 	// configure INT1
 	INT1_CTRL_REG &= ~PORT_PCR_MUX_MASK;	// remove mux setting

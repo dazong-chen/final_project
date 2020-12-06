@@ -98,8 +98,8 @@ int main()
     		y = getYAxisValue(); // SENSITIVITY_RATIO;
     		z = getZAxisValue(); // SENSITIVITY_RATIO;
 
-    		color_val(x, y, z);
-    		color_val(LED_OFF, LED_OFF, LED_OFF);
+    		color_val(x, y, z);	// set TPM.CnV value to turn on LED
+    		color_val(COLOR_OFF, COLOR_OFF, COLOR_OFF);		// turn off LED
     		board_rotate = false;
 
     	#ifdef DEBUG_MODE

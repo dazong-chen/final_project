@@ -35,19 +35,8 @@
 #define			LED_BLUE_PIN				1
 #define			LED_BLUE_PIN_CTRL_REG		PORTD->PCR[LED_BLUE_PIN]
 
-#define 		LED_OFF						0
 
 
-/**********************************************************************************************
- * function name: clock_init();
- *
- * function description: enable clock for specific ports
- *
- * parameter: none
- *
- * return value: none
- *********************************************************************************************/
-uint32_t get_INT1IRQ_count();
 
 
 #endif

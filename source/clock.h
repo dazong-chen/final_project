@@ -36,18 +36,6 @@ void clock_init();
 
 
 /**********************************************************************************************
- * function name: systick_init()
- *
- * function description: initialize systick
- *
- * parameter: none
- *
- * return value: none
- *********************************************************************************************/
-void systick_init();
-
-
-/**********************************************************************************************
  * function name: delay_process(int mseconds)
  *
  * function description: delay in milliseconds
@@ -59,41 +47,6 @@ void systick_init();
  *********************************************************************************************/
 void delay_process(int mseconds);
 
-
-/**********************************************************************************************
- * function name: get_timer()
- *
- * function description: time passed since last time called reset_timer()
- *
- * parameter: none
- *
- * return value: time in ms
- *********************************************************************************************/
-timer_t get_timer();
-
-
-/**********************************************************************************************
- * function name: reset_timer()
- *
- * function description: restart timer
- *
- * parameter: none
- *
- * return value: none
- *********************************************************************************************/
-void reset_timer();
-
-
-/**********************************************************************************************
- * function name: now()
- *
- * function description: time passed since startup
- *
- * parameter: none
- *
- * return value: time in ms
- *********************************************************************************************/
-timer_t now();
 
 
 
