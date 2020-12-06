@@ -71,20 +71,14 @@ int main()
     int16_t 	x = 0;
     int16_t		y = 0;
     int16_t		z = 0;
-    uint32_t	int1_signal_counter;
     extern bool 	board_rotate;
 
 
     clock_init();
     i2c_init();
     accelerometer_init();
-    //int1_signal_init();
     tpm_init(48000);
 
-//    x = getXAxisValue(); // SENSITIVITY_RATIO;
-//	y = getYAxisValue(); // SENSITIVITY_RATIO;
-//	z = getZAxisValue(); // SENSITIVITY_RATIO;
-//	printf("x = %d, y = %d, z = %d\r\n", x, y, z);
 
     while(1)
     {
@@ -102,7 +96,7 @@ int main()
     	}
 
 //		printf("IRQ count = %lu\n\n", irq_counter());
-//		delay_process(100);
+//		delay_process(50);
 
     }
 

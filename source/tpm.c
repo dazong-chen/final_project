@@ -78,9 +78,6 @@ void color_val(int16_t x, int16_t y, int16_t z)
 
 	else
 	{
-		delay_process(100);
+		delay_process(50);
 	}
-
-
-
 }
