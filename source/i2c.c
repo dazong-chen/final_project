@@ -14,7 +14,7 @@
 
 #include "i2c.h"
 #include "MKL25Z4.h"
-
+#include "stdio.h"
 
 
 #define 		I2C0_SDA_PIN				25
@@ -23,6 +23,7 @@
 #define			I2C0_SCL_CTRL_REG			PORTE->PCR[I2C0_SCL_PIN]
 #define			I2C0_DATA					I2C0->D
 #define			FIXED_DATA					2		// 2 bytes of device_addr and reg_addr
+
 
 
 
@@ -141,6 +142,7 @@ uint8_t i2c_read_one_byte(uint8_t dev_addr, uint8_t reg_addr)
 	uint8_t		data;
 
 
+
 	i2c_transmit();			// set to transmit
 	i2c_start();			// send start signal
 
@@ -181,6 +183,10 @@ void i2c_read_bytes(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint8_t c
 	uint8_t 	dummy;
 	uint8_t		num_bytes_read = 0;
 
+	if(data == NULL)
+	{
+		return;
+	}
 
 	i2c_transmit();			// set to transmit
 	i2c_start();			// send start signal

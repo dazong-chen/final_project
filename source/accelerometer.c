@@ -73,11 +73,12 @@
 #define     DATA_REG_OUT_Y_MSB      0x03        // y-axis data register
 #define		DATA_REG_OUT_Z_MSB		0x05        // z-axis data register
 
-#define		DATA_REG_MSB_SHIFT		6           // MSB register reads data from data bit6-bit13
-#define		DATA_REG_LSB_SHIFT		2           // LSB register reads data from data bit0-bit5
+#define		DATA_REG_MSB_SHIFT		8           // MSB register reads data from data bit6-bit13
+#define		DATA_REG_SHIFT		2           // LSB register reads data from data bit0-bit5
 
 #define		CALIBRATION_RATIO		8			// 2g value calibration
 #define     UINT14_MAX              16383       // Max value
+
 
 bool 		board_rotate =  false;
 uint32_t	int1_signal_counter = 0;
@@ -171,16 +172,19 @@ void accelerometer_init()
 
 
 // get axis value depends on axis addr
-int16_t getAxisValue(uint8_t axis_addr)
+uint16_t getAxisValue(uint8_t axis_addr)
 {
-	int16_t 	data;
+	uint16_t 	data;
 	uint8_t 	axis_data[2];
 	int 		length = sizeof(axis_data)/sizeof(axis_data[0]);
 
 
+
 	i2c_read_bytes(DEVICE_ADDR, axis_addr, axis_data, length);	// read MSB bytes and LSB byte from axis wanted
 
-	data = (axis_data[0] << DATA_REG_MSB_SHIFT) | (axis_data[1] >> DATA_REG_LSB_SHIFT);   // MSB | LSB to get 14bits of data
+	assert(axis_data != NULL);	// axis_data array has valid data
+
+	data = (axis_data[0] << DATA_REG_MSB_SHIFT) | (axis_data[1]) >> DATA_REG_SHIFT;   // MSB | LSB to get 14 bits of data
 
 	return data;
 }
@@ -194,7 +198,7 @@ int16_t getXAxisValue()
 
 
 // get Y axis value
-float getYAxisValue()
+int16_t getYAxisValue()
 {
 	return getAxisValue(DATA_REG_OUT_Y_MSB);
 }

@@ -50,7 +50,7 @@
 #include "tpm.h"
 
 
-#define 	DEBUG_MODE
+//#define 	DEBUG_MODE
 
 
 #ifdef DEBUG_MODE
@@ -98,7 +98,7 @@ int main()
     		y = getYAxisValue(); // SENSITIVITY_RATIO;
     		z = getZAxisValue(); // SENSITIVITY_RATIO;
 
-    		color_val(x, y, z);	// set TPM.CnV value to turn on LED
+    		color_val(x, y, z);	// set TPM.CnV value to set LED duty cycle
     		color_val(COLOR_OFF, COLOR_OFF, COLOR_OFF);		// turn off LED
     		board_rotate = false;
 
