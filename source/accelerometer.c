@@ -19,8 +19,17 @@
 #include "stdbool.h"
 #include "assert.h"
 
+
+
+// PTA14 related #define
+#define		INT1_PORT				GPIOA
+#define		INT1_PIN				14
+#define		INT1_CTRL_REG			PORTA->PCR[INT1_PIN]
+
+
+
 // Accelerometer related #define
-#define		DEVICE_ADDR				0x1D<<1		// device address is held in upper 7-bit, so left shift 1
+
 #define		REG_WHO_AM_I			0x0D		// WHO_AM_I Device ID register
 #define		WHO_AM_I_VAL			0x1A		// value of WHO_AM_I Device ID register
 
@@ -69,18 +78,28 @@
 #define		CALIBRATION_RATIO		8			// 2g value calibration
 #define     UINT14_MAX              16383       // Max value
 
-
+extern bool 		board_rotate = false;
+uint32_t		int1_signal_counter = 0;
 
 void accelerometer_init()
 {
 	uint8_t 	reset_in_process;
 	int 		data_ready = 0;
 	uint8_t		interrupt_set = 0;
+
+	// configure INT1
+	INT1_CTRL_REG &= ~PORT_PCR_MUX_MASK;	// remove mux setting
+	INT1_CTRL_REG |= PORT_PCR_MUX(1);		// set to gpio,
+
+	INT1_CTRL_REG |= PORT_PCR_IRQC(0x0A)	// enable interrupt on falling edge.
+				   | PORT_PCR_PS_MASK
+				   | PORT_PCR_PE_MASK;
+
 	// configure accelerometer
 	// check if accelerometer is detected
 	if(i2c_read_one_byte(DEVICE_ADDR, REG_WHO_AM_I) == WHO_AM_I_VAL)
 	{
-		i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, 0x01);
+		//i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, 0x01);
 
 		// reset MMA
 		i2c_write_byte(DEVICE_ADDR, CTRL_REG_2, CTRL_REG_2_RST);
@@ -91,50 +110,56 @@ void accelerometer_init()
 			reset_in_process = i2c_read_one_byte(DEVICE_ADDR, CTRL_REG_2) & 0x40;
 		}while (reset_in_process);
 
+
 		// using 2g scale
 		i2c_write_byte(DEVICE_ADDR, XYZ_DATA_CFG, XYZ_DATA_CFG_VAL);
 
-		// test if i2c write byte is actually writing to the MMA XYZ_DATA_CFG register
-		test_if_written(XYZ_DATA_CFG, XYZ_DATA_CFG_VAL);	// register value got written
+		i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, 0x18);
+		// test if i2c write byte is actually writing to the MMA CTRL_REG_1 register
+		test_if_written(CTRL_REG_1, 0x18);	// register value got written
 
-		// Push-pull, active low interrupt
-		i2c_write_byte(DEVICE_ADDR, CTRL_REG_3, 0x00);
-
-		// test if i2c write byte is actually writing to the MMA CTRL_REG_3 register
-		test_if_written(CTRL_REG_3, 0x00);	// register value got written
+//		// Push-pull, active low interrupt
+//		i2c_write_byte(DEVICE_ADDR, CTRL_REG_3, 0x00);
 
 		//------------------------------MOTION-------------------------------------
-		// ELE = 1, OAE = 1, ZEFE = 1, YEFE = 1, XEFE = 1, FF_MT_CFG_VAL = 0xF8
+		// ELE = 1, OAE = 1, ZEFE = 0, YEFE = 1, XEFE = 1, FF_MT_CFG_VAL = 0xD8
 		i2c_write_byte(DEVICE_ADDR, FF_MT_CFG, FF_MT_CFG_VAL);
 
-		// test if i2c write byte is actually writing to the MMA FF_MT_CFG register
-		test_if_written(FF_MT_CFG, FF_MT_CFG_VAL);	// register value got written
-
 		// THS = 32, 2g/0.063 = 31.7 round up 32, FF_MT_THS_VAL = 32
-		i2c_write_byte(DEVICE_ADDR, FF_MT_THS, FF_MT_THS_VAL);
-
-		// test if i2c write byte is actually writing to the MMA FF_MT_THS register
-		test_if_written(FF_MT_THS, FF_MT_THS_VAL);	// register value got written
+		i2c_write_byte(DEVICE_ADDR, FF_MT_THS, 0x10);//FF_MT_THS_VAL);
 
 		// debounce 10 counts, FF_MT_COUNT_VAL = 0x0A
 		i2c_write_byte(DEVICE_ADDR, FF_MT_COUNT, FF_MT_COUNT_VAL);
 
-		// test if i2c write byte is actually writing to the MMA FF_MT_COUNTregister
-		test_if_written(FF_MT_COUNT, FF_MT_COUNT_VAL);	// register value got written
-
 		// Enable motion interrupt, CTRL_REG_4_VAL - 0x04
 		i2c_write_byte(DEVICE_ADDR, CTRL_REG_4, CTRL_REG_4_VAL);
-
-		// test if i2c write byte is actually writing to the MMA CTRL_REG_4 register
-		test_if_written(CTRL_REG_4, CTRL_REG_4_VAL);	// register value got written
 
 		// motion interrupt routed to INT1 - PTA14, CTRL_REG_4_VAL = 0x04
 		i2c_write_byte(DEVICE_ADDR, CTRL_REG_5, CTRL_REG_5_VAL);
 
+
+		// test if i2c write byte is actually writing to the MMA XYZ_DATA_CFG register
+		test_if_written(XYZ_DATA_CFG, XYZ_DATA_CFG_VAL);	// register value got written
+
+//		// test if i2c write byte is actually writing to the MMA CTRL_REG_3 register
+//		test_if_written(CTRL_REG_3, 0x00);	// register value got written
+
+		// test if i2c write byte is actually writing to the MMA FF_MT_CFG register
+		test_if_written(FF_MT_CFG, FF_MT_CFG_VAL);	// register value got written
+
+		// test if i2c write byte is actually writing to the MMA FF_MT_THS register
+		test_if_written(FF_MT_THS, 0x10);	// register value got written
+
+		// test if i2c write byte is actually writing to the MMA FF_MT_COUNTregister
+		test_if_written(FF_MT_COUNT, FF_MT_COUNT_VAL);	// register value got written
+		// test if i2c write byte is actually writing to the MMA CTRL_REG_4 register
+
+		test_if_written(CTRL_REG_4, CTRL_REG_4_VAL);	// register value got written
 		// test if i2c write byte is actually writing to the MMA CTRL_REG_5 register
+
 		test_if_written(CTRL_REG_5, CTRL_REG_5_VAL);	// register value got written
 
-		interrupt_set = i2c_read_one_byte(DEVICE_ADDR, 0x0C);
+
 //		// using high resolution mode
 //		i2c_write_byte(DEVICE_ADDR, CTRL_REG_2, CTRL_REG_2_VAL);
 //
@@ -158,16 +183,19 @@ void accelerometer_init()
 //		//---------------------------DRDY----------------------------------
 
 		// 100Hz, active mode
-		i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, CTRL_REG_1_VAL);
+		i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, 0x01);
 
 		// test if i2c write byte is actually writing to the MMA CTRL_REG_1 register
-		test_if_written(CTRL_REG_1, CTRL_REG_1_VAL);	// register value got written
+		//test_if_written(CTRL_REG_1, CTRL_REG_1_VAL);	// register value got written
 
 		// Wait for a first set of data
-		while (!data_ready)
-		{
-			data_ready = i2c_read_one_byte(DEVICE_ADDR, STATUS_REG) & 0x08;
-		}
+//		while (!data_ready)
+//		{
+//			data_ready = i2c_read_one_byte(DEVICE_ADDR, STATUS_REG) & 0x08;
+//		}
+		NVIC_SetPriority(PORTA_IRQn, 2);
+		NVIC_ClearPendingIRQ(PORTA_IRQn);
+		NVIC_EnableIRQ(PORTA_IRQn);
 
 		printf("MMA8451Q Accelerometer is successfully initialized \r\n");
 	}
@@ -218,3 +246,40 @@ void test_if_written(uint8_t reg_addr, uint8_t reg_data)
 	assert(data == reg_data);
 }
 
+uint32_t irq_counter()
+{
+	return int1_signal_counter;
+}
+
+// PORT A interrupt
+void PORTA_IRQHandler()
+{
+
+
+//	//Determine source of the interrupt by first reading the system interrupt
+//	uint8_t IntSourceSystem = i2c_read_one_byte(DEVICE_ADDR, SRC_INT);
+
+//	if ((IntSourceSystem&0x04)==0x04)
+//	{
+//		board_rotate = true;
+//		//Perform an Action since Freefall Flag has been set
+//		//Read the Motion/Freefall Function to clear the interrupt
+//		uint8_t IntSourceMFF = i2c_read_one_byte(DEVICE_ADDR, FF_MT_SRC);
+//		//Can parse out data to perform a specific action based on the axes
+//		int1_signal_counter++;
+//	}
+	//clear the interrupt flag
+	NVIC_ClearPendingIRQ(PORTA_IRQn);
+
+	// if PTA14 ISF is detected
+	if(PORTA->ISFR & (1 << INT1_PIN))
+	{
+		board_rotate = true;
+
+		//Read the Motion/Freefall Function to clear the interrupt
+		uint8_t IntSourceMFF = i2c_read_one_byte(DEVICE_ADDR, FF_MT_SRC);
+
+		int1_signal_counter++;
+		PORTA->ISFR &=(1<<INT1_PIN);	// clear status flags
+	}
+}

@@ -7,7 +7,6 @@ C_SRCS += \
 ../source/accelerometer.c \
 ../source/clock.c \
 ../source/final_project.c \
-../source/gpio.c \
 ../source/i2c.c \
 ../source/mtb.c \
 ../source/semihost_hardfault.c \
@@ -17,7 +16,6 @@ OBJS += \
 ./source/accelerometer.o \
 ./source/clock.o \
 ./source/final_project.o \
-./source/gpio.o \
 ./source/i2c.o \
 ./source/mtb.o \
 ./source/semihost_hardfault.o \
@@ -27,7 +25,6 @@ C_DEPS += \
 ./source/accelerometer.d \
 ./source/clock.d \
 ./source/final_project.d \
-./source/gpio.d \
 ./source/i2c.d \
 ./source/mtb.d \
 ./source/semihost_hardfault.d \

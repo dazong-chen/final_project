@@ -72,34 +72,38 @@ int main()
     int16_t		y = 0;
     int16_t		z = 0;
     uint32_t	int1_signal_counter;
+    bool 	board_rotate;
+
 
     clock_init();
     i2c_init();
     accelerometer_init();
-    int1_signal_init();
+    //int1_signal_init();
     tpm_init(48000);
 
-    x = getXAxisValue(); // SENSITIVITY_RATIO;
-	y = getYAxisValue(); // SENSITIVITY_RATIO;
-	z = getZAxisValue(); // SENSITIVITY_RATIO;
-	printf("x = %d, y = %d, z = %d\r\n", x, y, z);
+//    x = getXAxisValue(); // SENSITIVITY_RATIO;
+//	y = getYAxisValue(); // SENSITIVITY_RATIO;
+//	z = getZAxisValue(); // SENSITIVITY_RATIO;
+//	printf("x = %d, y = %d, z = %d\r\n", x, y, z);
 
     while(1)
     {
 
-    	if(board_move())
+    	if(board_rotate)
     	{
-
     		x = getXAxisValue(); // SENSITIVITY_RATIO;
     		y = getYAxisValue(); // SENSITIVITY_RATIO;
     		z = getZAxisValue(); // SENSITIVITY_RATIO;
 
     		color_val(x, y, z);
     		color_val(LED_OFF, LED_OFF, LED_OFF);
+    		board_rotate = false;
     		printf("x = %d, y = %d, z = %d\r\n", x, y, z);
-    		printf("IRQ count = %lu\n\n", get_INT1IRQ_count());
-
     	}
+
+		printf("IRQ count = %lu\n\n", int1_signal_counter);
+		delay_process(100);
+
     }
 
 }
