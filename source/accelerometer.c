@@ -80,8 +80,10 @@
 #define     UINT14_MAX              16383       // Max value
 
 bool 		board_rotate =  false;
-uint32_t		int1_signal_counter = 0;
+uint32_t	int1_signal_counter = 0;
 
+
+// initialize accelerometer
 void accelerometer_init()
 {
 	uint8_t 	reset_in_process;
@@ -158,7 +160,7 @@ void accelerometer_init()
 //		#endif
 
 		// 100Hz, active mode
-		i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, 0x01);
+		i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, CTRL_REG_1_ACTIVE);
 
 
 		NVIC_SetPriority(PORTA_IRQn, 2);
@@ -215,6 +217,7 @@ void test_if_written(uint8_t reg_addr, uint8_t reg_data)
 }
 
 
+// return number of time PTA14 interrupt is triggered
 uint32_t irq_counter()
 {
 	return int1_signal_counter;

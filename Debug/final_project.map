@@ -2195,7 +2195,7 @@ OUTPUT(final_project.axf elf32-littlearm)
  .debug_ranges  0x00000700       0x28 ./board/pin_mux.o
  .debug_ranges  0x00000728       0x18 ./CMSIS/system_MKL25Z4.o
 
-.debug_macro    0x00000000     0x9213
+.debug_macro    0x00000000     0x921f
  .debug_macro   0x00000000      0x13a ./utilities/fsl_debug_console.o
  .debug_macro   0x0000013a      0xab4 ./utilities/fsl_debug_console.o
  .debug_macro   0x00000bee       0x10 ./utilities/fsl_debug_console.o
@@ -2230,86 +2230,86 @@ OUTPUT(final_project.axf elf32-littlearm)
  .debug_macro   0x000082eb       0xbd ./source/clock.o
  .debug_macro   0x000083a8       0x40 ./source/clock.o
  .debug_macro   0x000083e8       0x40 ./source/clock.o
- .debug_macro   0x00008428      0x180 ./source/final_project.o
- .debug_macro   0x000085a8       0x16 ./source/final_project.o
- .debug_macro   0x000085be       0x10 ./source/final_project.o
- .debug_macro   0x000085ce      0x112 ./source/final_project.o
- .debug_macro   0x000086e0       0x5e ./source/final_project.o
- .debug_macro   0x0000873e       0x34 ./source/final_project.o
- .debug_macro   0x00008772       0x22 ./source/final_project.o
- .debug_macro   0x00008794       0x46 ./source/final_project.o
- .debug_macro   0x000087da       0x22 ./source/final_project.o
- .debug_macro   0x000087fc       0xb0 ./source/i2c.o
- .debug_macro   0x000088ac       0x2f ./source/mtb.o
- .debug_macro   0x000088db       0x82 ./source/mtb.o
- .debug_macro   0x0000895d       0x10 ./source/mtb.o
- .debug_macro   0x0000896d       0x11 ./source/semihost_hardfault.o
- .debug_macro   0x0000897e       0xd0 ./source/tpm.o
- .debug_macro   0x00008a4e       0x3a ./source/tpm.o
- .debug_macro   0x00008a88      0x196 ./drivers/fsl_clock.o
- .debug_macro   0x00008c1e       0x1c ./drivers/fsl_clock.o
- .debug_macro   0x00008c3a       0xec ./drivers/fsl_lpsci.o
- .debug_macro   0x00008d26       0xf2 ./drivers/fsl_uart.o
- .debug_macro   0x00008e18      0x12b ./board/board.o
- .debug_macro   0x00008f43      0x123 ./board/clock_config.o
- .debug_macro   0x00009066       0x1b ./board/peripherals.o
- .debug_macro   0x00009081       0xee ./board/pin_mux.o
- .debug_macro   0x0000916f       0x10 ./board/pin_mux.o
- .debug_macro   0x0000917f       0x94 ./CMSIS/system_MKL25Z4.o
+ .debug_macro   0x00008428      0x18c ./source/final_project.o
+ .debug_macro   0x000085b4       0x16 ./source/final_project.o
+ .debug_macro   0x000085ca       0x10 ./source/final_project.o
+ .debug_macro   0x000085da      0x112 ./source/final_project.o
+ .debug_macro   0x000086ec       0x5e ./source/final_project.o
+ .debug_macro   0x0000874a       0x34 ./source/final_project.o
+ .debug_macro   0x0000877e       0x22 ./source/final_project.o
+ .debug_macro   0x000087a0       0x46 ./source/final_project.o
+ .debug_macro   0x000087e6       0x22 ./source/final_project.o
+ .debug_macro   0x00008808       0xb0 ./source/i2c.o
+ .debug_macro   0x000088b8       0x2f ./source/mtb.o
+ .debug_macro   0x000088e7       0x82 ./source/mtb.o
+ .debug_macro   0x00008969       0x10 ./source/mtb.o
+ .debug_macro   0x00008979       0x11 ./source/semihost_hardfault.o
+ .debug_macro   0x0000898a       0xd0 ./source/tpm.o
+ .debug_macro   0x00008a5a       0x3a ./source/tpm.o
+ .debug_macro   0x00008a94      0x196 ./drivers/fsl_clock.o
+ .debug_macro   0x00008c2a       0x1c ./drivers/fsl_clock.o
+ .debug_macro   0x00008c46       0xec ./drivers/fsl_lpsci.o
+ .debug_macro   0x00008d32       0xf2 ./drivers/fsl_uart.o
+ .debug_macro   0x00008e24      0x12b ./board/board.o
+ .debug_macro   0x00008f4f      0x123 ./board/clock_config.o
+ .debug_macro   0x00009072       0x1b ./board/peripherals.o
+ .debug_macro   0x0000908d       0xee ./board/pin_mux.o
+ .debug_macro   0x0000917b       0x10 ./board/pin_mux.o
+ .debug_macro   0x0000918b       0x94 ./CMSIS/system_MKL25Z4.o
 
-.debug_line     0x00000000     0x5731
+.debug_line     0x00000000     0x5732
  .debug_line    0x00000000      0x49a ./utilities/fsl_debug_console.o
  .debug_line    0x0000049a      0x1e7 ./startup/startup_mkl25z4.o
  .debug_line    0x00000681      0x462 ./source/accelerometer.o
  .debug_line    0x00000ae3      0x283 ./source/clock.o
- .debug_line    0x00000d66      0x482 ./source/final_project.o
- .debug_line    0x000011e8      0x463 ./source/i2c.o
- .debug_line    0x0000164b       0xd1 ./source/mtb.o
- .debug_line    0x0000171c       0x59 ./source/semihost_hardfault.o
- .debug_line    0x00001775      0x2f3 ./source/tpm.o
- .debug_line    0x00001a68     0x1301 ./drivers/fsl_clock.o
- .debug_line    0x00002d69      0xd7a ./drivers/fsl_lpsci.o
- .debug_line    0x00003ae3      0xd69 ./drivers/fsl_uart.o
- .debug_line    0x0000484c      0x3c6 ./board/board.o
- .debug_line    0x00004c12      0x403 ./board/clock_config.o
- .debug_line    0x00005015       0x5c ./board/peripherals.o
- .debug_line    0x00005071      0x38d ./board/pin_mux.o
- .debug_line    0x000053fe      0x333 ./CMSIS/system_MKL25Z4.o
+ .debug_line    0x00000d66      0x483 ./source/final_project.o
+ .debug_line    0x000011e9      0x463 ./source/i2c.o
+ .debug_line    0x0000164c       0xd1 ./source/mtb.o
+ .debug_line    0x0000171d       0x59 ./source/semihost_hardfault.o
+ .debug_line    0x00001776      0x2f3 ./source/tpm.o
+ .debug_line    0x00001a69     0x1301 ./drivers/fsl_clock.o
+ .debug_line    0x00002d6a      0xd7a ./drivers/fsl_lpsci.o
+ .debug_line    0x00003ae4      0xd69 ./drivers/fsl_uart.o
+ .debug_line    0x0000484d      0x3c6 ./board/board.o
+ .debug_line    0x00004c13      0x403 ./board/clock_config.o
+ .debug_line    0x00005016       0x5c ./board/peripherals.o
+ .debug_line    0x00005072      0x38d ./board/pin_mux.o
+ .debug_line    0x000053ff      0x333 ./CMSIS/system_MKL25Z4.o
 
-.debug_str      0x00000000    0x36634
- .debug_str     0x00000000    0x31603 ./utilities/fsl_debug_console.o
+.debug_str      0x00000000    0x36646
+ .debug_str     0x00000000    0x315f5 ./utilities/fsl_debug_console.o
                               0x31850 (size before relaxing)
- .debug_str     0x00031603      0x3e1 ./startup/startup_mkl25z4.o
+ .debug_str     0x000315f5      0x3e1 ./startup/startup_mkl25z4.o
                                0x3214 (size before relaxing)
- .debug_str     0x000319e4      0x692 ./source/accelerometer.o
+ .debug_str     0x000319d6      0x692 ./source/accelerometer.o
                               0x298c3 (size before relaxing)
- .debug_str     0x00032076      0x362 ./source/clock.o
+ .debug_str     0x00032068      0x362 ./source/clock.o
                               0x29146 (size before relaxing)
- .debug_str     0x000323d8      0xf91 ./source/final_project.o
-                              0x31bf0 (size before relaxing)
- .debug_str     0x00033369      0x161 ./source/i2c.o
+ .debug_str     0x000323ca      0xfb1 ./source/final_project.o
+                              0x31c10 (size before relaxing)
+ .debug_str     0x0003337b      0x161 ./source/i2c.o
                               0x28f1c (size before relaxing)
- .debug_str     0x000334ca      0x532 ./source/mtb.o
+ .debug_str     0x000334dc      0x532 ./source/mtb.o
                                0x3320 (size before relaxing)
- .debug_str     0x000339fc       0x1f ./source/semihost_hardfault.o
+ .debug_str     0x00033a0e       0x1f ./source/semihost_hardfault.o
                                0x2e0d (size before relaxing)
- .debug_str     0x00033a1b       0x56 ./source/tpm.o
+ .debug_str     0x00033a2d       0x56 ./source/tpm.o
                               0x293f9 (size before relaxing)
- .debug_str     0x00033a71     0x14d7 ./drivers/fsl_clock.o
+ .debug_str     0x00033a83     0x14d7 ./drivers/fsl_clock.o
                               0x3231b (size before relaxing)
- .debug_str     0x00034f48      0x963 ./drivers/fsl_lpsci.o
+ .debug_str     0x00034f5a      0x963 ./drivers/fsl_lpsci.o
                               0x31923 (size before relaxing)
- .debug_str     0x000358ab      0x832 ./drivers/fsl_uart.o
+ .debug_str     0x000358bd      0x832 ./drivers/fsl_uart.o
                               0x31946 (size before relaxing)
- .debug_str     0x000360dd       0x4c ./board/board.o
+ .debug_str     0x000360ef       0x4c ./board/board.o
                               0x31793 (size before relaxing)
- .debug_str     0x00036129      0x300 ./board/clock_config.o
+ .debug_str     0x0003613b      0x300 ./board/clock_config.o
                               0x31249 (size before relaxing)
- .debug_str     0x00036429       0x31 ./board/peripherals.o
+ .debug_str     0x0003643b       0x31 ./board/peripherals.o
                                0x2e1e (size before relaxing)
- .debug_str     0x0003645a      0x18b ./board/pin_mux.o
+ .debug_str     0x0003646c      0x18b ./board/pin_mux.o
                               0x30b84 (size before relaxing)
- .debug_str     0x000365e5       0x4f ./CMSIS/system_MKL25Z4.o
+ .debug_str     0x000365f7       0x4f ./CMSIS/system_MKL25Z4.o
                               0x2fc85 (size before relaxing)
 
 .comment        0x00000000       0x79

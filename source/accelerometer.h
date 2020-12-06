@@ -24,6 +24,8 @@
 #define		SENSITIVITY_RATIO		4096        // 2g mode
 
 
+
+
 /**********************************************************************************************
  * function name: accelerometer_init()
  *
@@ -99,6 +101,16 @@ int16_t getZAxisValue();
 void test_if_written(uint8_t reg_addr, uint8_t reg_data);
 
 
+/**********************************************************************************************
+ * function name: irq_counter()
+ *
+ * function description: return number of time PTA14 interrupt is triggered
+ *
+ * parameter: none
+ *
+ * return value:
+ *		number of time PTA14 interrupt is triggered
+ *********************************************************************************************/
 uint32_t irq_counter();
 
 #endif

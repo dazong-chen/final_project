@@ -49,11 +49,15 @@
 #include "accelerometer.h"
 #include "tpm.h"
 
-//#ifdef DEBUG
-//	#define 		DEBUG_PRINTF 				printf
-//#else
-//	#define			DEBUG_PRINTF(...)
-//#endif
+
+#define 	DEBUG_MODE
+
+
+#ifdef DEBUG_MODE
+	#define 		DEBUG_PRINTF 				printf
+#else
+	#define			DEBUG_PRINTF(...)
+#endif
 
 
 /*
@@ -98,11 +102,10 @@ int main()
     		color_val(LED_OFF, LED_OFF, LED_OFF);
     		board_rotate = false;
 
-    	#ifdef DEBUG
+    	#ifdef DEBUG_MODE
     		printf("x1 = %d, y1 = %d, z1 = %d\r\n", x, y, z);
         	printf("PTA IRQ Handler count = %lu\r\n", irq_counter());
 		#endif
-
     	}
     }
 
