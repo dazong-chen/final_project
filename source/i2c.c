@@ -35,7 +35,7 @@ void i2c_init()
 
 	// baud = bus_freq/(scl_div * mul)
 	// 400k = 48M/120, scl_div = 0x11 and mul = 2
-	I2C0->F = I2C_F_ICR(0x10) |I2C_F_MULT(0);
+	I2C0->F = I2C_F_ICR(0x12) |I2C_F_MULT(0);
 
 	// enable i2c and set to master mode
 	I2C0->C1 |= I2C_C1_IICEN_MASK;

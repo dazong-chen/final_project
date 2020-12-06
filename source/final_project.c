@@ -72,7 +72,7 @@ int main()
     int16_t		y = 0;
     int16_t		z = 0;
     uint32_t	int1_signal_counter;
-    bool 	board_rotate;
+    extern bool 	board_rotate;
 
 
     clock_init();
@@ -98,11 +98,11 @@ int main()
     		color_val(x, y, z);
     		color_val(LED_OFF, LED_OFF, LED_OFF);
     		board_rotate = false;
-    		printf("x = %d, y = %d, z = %d\r\n", x, y, z);
+//    		printf("x = %d, y = %d, z = %d\r\n", x, y, z);
     	}
 
-		printf("IRQ count = %lu\n\n", int1_signal_counter);
-		delay_process(100);
+//		printf("IRQ count = %lu\n\n", irq_counter());
+//		delay_process(100);
 
     }
 

@@ -60,10 +60,10 @@
 #define		XYZ_DATA_CFG_VAL		0x00		// choose 2g scale
 
 #define		FF_MT_CFG				0x15		// FF_MT_CFG address
-#define		FF_MT_CFG_VAL			0xD8		// ELE = 0, OAE = 1, ZEFE = 1, YEFE = 1, XEFE = 1
+#define		FF_MT_CFG_VAL			0xF8		// ELE = 0, OAE = 1, ZEFE = 1, YEFE = 1, XEFE = 1
 
 #define		FF_MT_THS				0x17		// FF_MT_THS
-#define		FF_MT_THS_VAL			0x20		// THS = 32, 2g/0.063 = 31.7 round up 32
+#define		FF_MT_THS_VAL			0x10		// THS = 16, 1g/0.063 = 15 round up 16
 
 #define		FF_MT_COUNT				0x18		// FF_MT_COUNT
 #define		FF_MT_COUNT_VAL			0x0A		// debounce 80 counts, 100ms/1.25ms = 80
@@ -78,7 +78,7 @@
 #define		CALIBRATION_RATIO		8			// 2g value calibration
 #define     UINT14_MAX              16383       // Max value
 
-extern bool 		board_rotate = false;
+bool 		board_rotate =  false;
 uint32_t		int1_signal_counter = 0;
 
 void accelerometer_init()
@@ -107,7 +107,7 @@ void accelerometer_init()
 		// Wait for the RST bit to clear, reset done, after reset done, MMA will be in standby mode
 		do
 		{
-			reset_in_process = i2c_read_one_byte(DEVICE_ADDR, CTRL_REG_2) & 0x40;
+			reset_in_process = i2c_read_one_byte(DEVICE_ADDR, CTRL_REG_2) & CTRL_REG_2_RST;
 		}while (reset_in_process);
 
 
@@ -126,7 +126,7 @@ void accelerometer_init()
 		i2c_write_byte(DEVICE_ADDR, FF_MT_CFG, FF_MT_CFG_VAL);
 
 		// THS = 32, 2g/0.063 = 31.7 round up 32, FF_MT_THS_VAL = 32
-		i2c_write_byte(DEVICE_ADDR, FF_MT_THS, 0x10);//FF_MT_THS_VAL);
+		i2c_write_byte(DEVICE_ADDR, FF_MT_THS, FF_MT_THS_VAL);
 
 		// debounce 10 counts, FF_MT_COUNT_VAL = 0x0A
 		i2c_write_byte(DEVICE_ADDR, FF_MT_COUNT, FF_MT_COUNT_VAL);
@@ -148,7 +148,7 @@ void accelerometer_init()
 		test_if_written(FF_MT_CFG, FF_MT_CFG_VAL);	// register value got written
 
 		// test if i2c write byte is actually writing to the MMA FF_MT_THS register
-		test_if_written(FF_MT_THS, 0x10);	// register value got written
+		test_if_written(FF_MT_THS, FF_MT_THS_VAL);	// register value got written
 
 		// test if i2c write byte is actually writing to the MMA FF_MT_COUNTregister
 		test_if_written(FF_MT_COUNT, FF_MT_COUNT_VAL);	// register value got written
