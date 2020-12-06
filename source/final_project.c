@@ -40,15 +40,20 @@
 #include "MKL25Z4.h"
 #include "fsl_debug_console.h"
 
+
 #include "stdbool.h"
 #include "stdlib.h"
 #include "clock.h"
 #include "i2c.h"
+#include "gpio.h"
 #include "accelerometer.h"
 #include "tpm.h"
 
-
-#define 	LED_OFF		0
+//#ifdef DEBUG
+//	#define 		DEBUG_PRINTF 				printf
+//#else
+//	#define			DEBUG_PRINTF(...)
+//#endif
 
 
 /*
@@ -92,12 +97,13 @@ int main()
     		color_val(x, y, z);
     		color_val(LED_OFF, LED_OFF, LED_OFF);
     		board_rotate = false;
-//    		printf("x = %d, y = %d, z = %d\r\n", x, y, z);
+
+    	#ifdef DEBUG
+    		printf("x1 = %d, y1 = %d, z1 = %d\r\n", x, y, z);
+        	printf("PTA IRQ Handler count = %lu\r\n", irq_counter());
+		#endif
+
     	}
-
-//		printf("IRQ count = %lu\n\n", irq_counter());
-//		delay_process(50);
-
     }
 
 }

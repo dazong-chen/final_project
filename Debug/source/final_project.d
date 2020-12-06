@@ -20,8 +20,8 @@ source/final_project.o source/final_project.d: ../source/final_project.c \
  C:\Users\sunny\Documents\MCUXpressoIDE_11.2.1_4149\workspace\final_project\utilities/fsl_debug_console.h \
  ../source/clock.h \
  C:\Users\sunny\Documents\MCUXpressoIDE_11.2.1_4149\workspace\final_project\CMSIS/core_cm0plus.h \
- ../source/i2c.h ../source/accelerometer.h ../source/tpm.h \
- ../source/gpio.h
+ ../source/i2c.h ../source/gpio.h ../source/accelerometer.h \
+ ../source/tpm.h
 
 C:\Users\sunny\Documents\MCUXpressoIDE_11.2.1_4149\workspace\final_project\board/board.h:
 
@@ -67,8 +67,8 @@ C:\Users\sunny\Documents\MCUXpressoIDE_11.2.1_4149\workspace\final_project\CMSIS
 
 ../source/i2c.h:
 
+../source/gpio.h:
+
 ../source/accelerometer.h:
 
 ../source/tpm.h:
-
-../source/gpio.h:

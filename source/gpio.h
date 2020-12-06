@@ -35,30 +35,18 @@
 #define			LED_BLUE_PIN				1
 #define			LED_BLUE_PIN_CTRL_REG		PORTD->PCR[LED_BLUE_PIN]
 
+#define 		LED_OFF						0
+
 
 /**********************************************************************************************
- * function name: int1_signal_init()
+ * function name: clock_init();
  *
- * function description: initialize INT1 signal which is routed to PTA14
+ * function description: enable clock for specific ports
  *
  * parameter: none
  *
  * return value: none
  *********************************************************************************************/
-void int1_signal_init();
-
-
-/**********************************************************************************************
- * function name: board_move()
- *
- * function description: detect if board gets moved
- *
- * parameter: none
- *
- * return value: true for moved and false for not moved
- *********************************************************************************************/
-bool board_move();
-
 uint32_t get_INT1IRQ_count();
 
 
