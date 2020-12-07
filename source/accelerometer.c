@@ -19,7 +19,7 @@
 #include "stdbool.h"
 #include "assert.h"
 #include "my_debug.h"
-
+#include "stdlib.h"
 
 // PTA14 related #define
 #define		INT1_PORT				GPIOA
@@ -74,9 +74,9 @@
 #define		DATA_REG_OUT_Z_MSB		0x05        // z-axis data register
 
 #define		DATA_REG_MSB_SHIFT		8           // MSB register reads data from data bit6-bit13
-#define		DATA_REG_SHIFT		2           // LSB register reads data from data bit0-bit5
+#define		DATA_REG_SHIFT			2           // LSB register reads data from data bit0-bit5
 
-#define		CALIBRATION_RATIO		8			// 2g value calibration
+
 #define     UINT14_MAX              16383       // Max value
 
 
@@ -134,8 +134,10 @@ void accelerometer_init()
 		// motion interrupt routed to INT1 - PTA14, CTRL_REG_5_VAL = 0x04
 		i2c_write_byte(DEVICE_ADDR, CTRL_REG_5, CTRL_REG_5_VAL);
 
+
+		//----------------test if MMA register get configured-----------------//
+		// this section will only run when DEBUG_MODE is defined in my_debug.h
 		#ifdef DEBUG_MODE
-		// test if MMA register get configured
 		// test if i2c write byte is actually writing to the MMA CTRL_REG_1 register
 		test_if_written(CTRL_REG_1, CTRL_REG_1_VAL);
 
@@ -156,7 +158,9 @@ void accelerometer_init()
 		// test if i2c write byte is actually writing to the MMA CTRL_REG_5 register
 
 		test_if_written(CTRL_REG_5, CTRL_REG_5_VAL);	// register value got written
-		#endif
+
+		#endif	// end of test section
+
 
 		// 100Hz, active mode
 		i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, CTRL_REG_1_ACTIVE);
@@ -215,7 +219,20 @@ int16_t getZAxisValue()
 void test_if_written(uint8_t reg_addr, uint8_t reg_data)
 {
 	uint8_t data = i2c_read_one_byte(DEVICE_ADDR, reg_addr);
-	assert(data == reg_data);
+
+
+	if(data != reg_data)
+	{
+
+		printf("----->MMA Reg_addr 0x%x configuration failed<-----\n", reg_addr);
+		assert(data == reg_data);
+
+		while(1)
+		{
+
+		}
+	}
+
 }
 
 
