@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include "stdbool.h"
 #include "assert.h"
-
+#include "my_debug.h"
 
 
 // PTA14 related #define
@@ -134,7 +134,7 @@ void accelerometer_init()
 		// motion interrupt routed to INT1 - PTA14, CTRL_REG_5_VAL = 0x04
 		i2c_write_byte(DEVICE_ADDR, CTRL_REG_5, CTRL_REG_5_VAL);
 
-//		#ifdef DEBUG
+		#ifdef DEBUG_MODE
 		// test if MMA register get configured
 		// test if i2c write byte is actually writing to the MMA CTRL_REG_1 register
 		test_if_written(CTRL_REG_1, CTRL_REG_1_VAL);
@@ -156,7 +156,7 @@ void accelerometer_init()
 		// test if i2c write byte is actually writing to the MMA CTRL_REG_5 register
 
 		test_if_written(CTRL_REG_5, CTRL_REG_5_VAL);	// register value got written
-//		#endif
+		#endif
 
 		// 100Hz, active mode
 		i2c_write_byte(DEVICE_ADDR, CTRL_REG_1, CTRL_REG_1_ACTIVE);

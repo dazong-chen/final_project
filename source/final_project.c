@@ -48,10 +48,12 @@
 #include "gpio.h"
 #include "accelerometer.h"
 #include "tpm.h"
+#include "my_debug.h"
 
 
-//#define 	DEBUG_MODE
-
+// DEBUG_MODE is defined in my_debug.h
+// if DEBUG_MODE is defined, program will run in debug mode which will print accelerometer xyz value and times run into PTA IRQ_Handler
+// if not defined, it will just blink LED
 
 #ifdef DEBUG_MODE
 	#define 		DEBUG_PRINTF 				printf
