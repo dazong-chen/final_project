@@ -82,7 +82,7 @@ int main()
     int16_t 	x = 0;
     int16_t		y = 0;
     int16_t		z = 0;
-    extern bool 	board_rotate;
+    extern bool 	board_rotate;	// this value will also be changed in accelerometer.c
 
 
     clock_init();
@@ -93,7 +93,7 @@ int main()
 
     while(1)
     {
-
+    	// if board motion is detected
     	if(board_rotate)
     	{
     		x = getXAxisValue(); // SENSITIVITY_RATIO;
@@ -104,7 +104,7 @@ int main()
     		color_val(COLOR_OFF, COLOR_OFF, COLOR_OFF);		// turn off LED
     		board_rotate = false;
 
-
+    		// only print when DEBUG_MODE is defined
     		DEBUG_PRINTF("x1 = %d, y1 = %d, z1 = %d\r\n", x, y, z);
     		DEBUG_PRINTF("PTA IRQ Handler count = %lu\r\n", irq_counter());
     	}

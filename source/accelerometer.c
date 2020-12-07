@@ -29,11 +29,14 @@
 
 
 // Accelerometer related #define
+#define		DEVICE_ADDR				0x1D<<1		// device address is held in upper 7-bit, so left shift 1
 
 #define		REG_WHO_AM_I			0x0D		// WHO_AM_I Device ID register
 #define		WHO_AM_I_VAL			0x1A		// value of WHO_AM_I Device ID register
 
 #define		STATUS_REG				0x00		// status register address
+#define		SRC_INT					0x0C		// src interrupt address
+#define		FF_MT_SRC				0x16		// FF_MT_SRC address
 
 #define		CTRL_REG_1				0x2A        // ctrl register 1 address
 #define		CTRL_REG_1_VAL			0x18		// ODR = 100Hz, reduced noise mode, Active mode

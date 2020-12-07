@@ -18,9 +18,7 @@
 #include "MKL25Z4.h"
 #include "i2c.h"
 
-#define		DEVICE_ADDR				0x1D<<1		// device address is held in upper 7-bit, so left shift 1
-#define		SRC_INT					0x0C		// src interrupt address
-#define		FF_MT_SRC				0x16		// FF_MT_SRC address
+
 #define		SENSITIVITY_RATIO		4096        // 2g mode
 
 
