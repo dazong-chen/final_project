@@ -104,10 +104,9 @@ int main()
     		color_val(COLOR_OFF, COLOR_OFF, COLOR_OFF);		// turn off LED
     		board_rotate = false;
 
-    	#ifdef DEBUG_MODE
-    		printf("x1 = %d, y1 = %d, z1 = %d\r\n", x, y, z);
-        	printf("PTA IRQ Handler count = %lu\r\n", irq_counter());
-		#endif
+
+    		DEBUG_PRINTF("x1 = %d, y1 = %d, z1 = %d\r\n", x, y, z);
+    		DEBUG_PRINTF("PTA IRQ Handler count = %lu\r\n", irq_counter());
     	}
     }
 

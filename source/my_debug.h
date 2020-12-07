@@ -11,6 +11,6 @@
 #ifndef _MY_DEBUG_H_
 #define _MY_DEBUG_H_
 
-//#define 	DEBUG_MODE
+#define 	DEBUG_MODE
 
 #endif
